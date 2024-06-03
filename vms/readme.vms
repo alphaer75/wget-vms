@@ -1,0 +1,20 @@
+This is directory for OpenVMS support,
+wget console web client
+
+Requires:
+perl,
+zlib library  : http://vaxvms.org/libsdl/required.html
+openssl library : I use vanilla from https://www.openssl.org/
+libidn2 : is here https://vaxvms.org/wget
+
+To build please:
+
+@[.VMS]CONFIGURE.COM
+@BUILD
+
+After build, WGET$STARTUP.COM has been created
+it should be started before use (good place from LOGIN.COM)
+
+Feel free to contact:
+alexey@vaxman.de
+Alexey Chupahin

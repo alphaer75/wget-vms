@@ -1,0 +1,88 @@
+                                Source Listing                  18-MAY-2024 13:21:43  HP C V7.3-009-48GBT               Page 1
+                                                                10-MAR-2024 16:06:35  [SYSMGR.ALEX.WGET.WGET-1_24_5.LIB]TIMEGM.C;1
+
+	      1 /* Convert UTC calendar time to simple time.  Like mktime but assumes UTC.
+	      2 
+	      3    Copyright (C) 1994-2024 Free Software Foundation, Inc.
+	      4    This file is part of the GNU C Library.
+	      5 
+	      6    The GNU C Library is free software; you can redistribute it and/or
+	      7    modify it under the terms of the GNU Lesser General Public
+	      8    License as published by the Free Software Foundation; either
+	      9    version 2.1 of the License, or (at your option) any later version.
+	     10 
+	     11    The GNU C Library is distributed in the hope that it will be useful,
+	     12    but WITHOUT ANY WARRANTY; without even the implied warranty of
+	     13    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	     14    Lesser General Public License for more details.
+	     15 
+	     16    You should have received a copy of the GNU Lesser General Public
+	     17    License along with the GNU C Library; if not, see
+	     18    <https://www.gnu.org/licenses/>.  */
+	     19 
+	     20 #ifndef _LIBC
+	     21 # include <libc-config.h>
+	  10197 #endif
+	  10198 
+       X  10199 #include <time.h>
+       X  10200 #include <errno.h>
+	  10201 
+	  10202 #include "mktime-internal.h"
+	  10282 
+	  10283 __time64_t
+	  10284 __timegm64 (struct tm *tmp)
+      1	  10285 {
+      1	  10286   static mktime_offset_t gmtime_offset;
+      1	  10287   tmp->tm_isdst = 0;
+      1	  10288   return __mktime_internal (tmp, __gmtime64_r, &gmtime_offset);
+      1	  10289 }
+	  10290 
+       X  10291 #if defined _LIBC && __TIMESIZE != 64
+       X  10292 
+       X  10293 libc_hidden_def (__timegm64)
+       X  10294 
+       X  10295 time_t
+       X  10296 timegm (struct tm *tmp)
+       X  10297 {
+       X  10298   struct tm tm = *tmp;
+       X  10299   __time64_t t = __timegm64 (&tm);
+       X  10300   if (in_time_t_range (t))
+       X  10301     {
+       X  10302       *tmp = tm;
+       X  10303       return t;
+       X  10304     }
+       X  10305   else
+       X  10306     {
+       X  10307       __set_errno (EOVERFLOW);
+       X  10308       return -1;
+       X  10309     }
+       X  10310 }
+       X  10311 
+
+                                Source Listing                  18-MAY-2024 13:21:43  HP C V7.3-009-48GBT               Page 2
+                                                                10-MAR-2024 16:06:35  [SYSMGR.ALEX.WGET.WGET-1_24_5.LIB]TIMEGM.C;1
+
+       X  10312 #endif
+
+
+Command Line
+------- ----
+
+CC/INCLUDE=([],[-],[-.SRC],[-.VMS])/DEFINE=(HAVE_CONFIG_H,__USE_GNU)/OPTIMIZE=(
+INLINE=SPEED)/WARN=DIS=(QUESTCOMPARE,LONGEXTERN,NOTINCRTL) TIMEGM.C/LIST/OBJ=TI
+MEGM.OBJ
+
+Hardware: /ARCHITECTURE=GENERIC /OPTIMIZE=TUNE=GENERIC
+
+These macros are in effect at the start of the compilation.
+----- ------ --- -- ------ -- --- ----- -- --- ------------
+
+ __G_FLOAT=1  __DECC=1  vms=1  VMS=1  __32BITS=1  __PRAGMA_ENVIRONMENT=1 
+ __CRTL_VER=80300000  __vms_version="V8.3    "  CC$gfloat=1  __X_FLOAT=1 
+ vms_version="V8.3    "  __DATE__="May 18 2024"  __STDC_VERSION__=199901L 
+ __DECC_MODE_RELAXED=1  __DECC_VER=70390009  __VMS=1  __ALPHA=1 
+ VMS_VERSION="V8.3    "  HAVE_CONFIG_H=1  __IEEE_FLOAT=0 
+ __VMS_VERSION="V8.3    "  __USE_GNU=1  __TIME__="13:21:44"  __Alpha_AXP=1 
+ __VMS_VER=80300022  __BIASED_FLT_ROUNDS=2  __INITIAL_POINTER_SIZE=0 
+ __STDC__=2  __LANGUAGE_C__=1  __vms=1  __alpha=1  __D_FLOAT=0 
+

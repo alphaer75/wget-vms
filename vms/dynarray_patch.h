@@ -1,0 +1,11 @@
+#ifdef VMS
+#ifndef DYNARRAY_VMS_PATCH
+#define DYNARRAY_VMS_PATCH
+#define __libc_dynarray_at_failure gl_dynarray_at_failure
+#define __libc_dynarray_emplace_enlarge gl_dynarray_emplace_enlarge
+#define __libc_dynarray_finalize gl_dynarray_finalize
+#define __libc_dynarray_resize_clear gl_dynarray_resize_clear
+#define __libc_dynarray_resize gl_dynarray_resize
+#endif
+#endif
+
