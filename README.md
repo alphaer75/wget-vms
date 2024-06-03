@@ -1,6 +1,6 @@
 # wget-vms
 
-Wget port to OpenVMS
+Wget 1.24.5 port to OpenVMS
 by
 Alexey Chupahin
 see readme in [.VMS] 
